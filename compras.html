@@ -1,0 +1,181 @@
+<!doctype html>
+
+<html>
+	
+	<head>
+
+		<title>Gaming Center - Doação</title>			
+		<meta charset="utf-8" />
+	
+	</head>
+
+	<body>
+
+		<table border="0" width="900" align="center">
+
+			<tr>
+				
+				<td> 
+				<img src="imagens/logo.png" />
+			
+			</td>
+				<td align="right">
+					
+					<a href="index.html">Home</a> |
+					<a href="quem-somos.html">Quem somos</a> |
+					<a href="contato.html">Contato</a> |
+                    <a href="compras.html">Doar</a> |
+                    <a href="trabalhe-conosco.html">Trabalhe Conosco</a>
+
+				</td>
+
+			</tr>
+
+			<tr>
+				
+			<td colspan="2">
+
+				<img src="imagens/principal.png"/>
+
+			</td>
+
+	
+
+		
+				
+				
+
+			</tr>
+			
+			<tr>
+				
+				<td colspan="2" align="center"><h4>Good game, player</h4></td>
+
+			</tr>
+
+
+		</table>
+		
+		<h1 align="center">Login</h1>
+
+		<form align="center">
+			
+			Login:<br />
+			<input type="text" name="login" /><br />
+			Senha:<br />
+			<input type="password" name="senha" /><br /><br />
+
+			<input type="submit" value="Login" />
+
+		</form>
+
+			<h1 align="center">Cadastre-se</h1>
+			<form align="center">
+			
+			Login:<br />
+			<input type="text" /><br /><br />
+
+			Sexo:<br />
+			<input type="radio" name="sexo" />Masculino<br />
+			<input type="radio" name="sexo" />Feminino<br />
+			<input type="radio" name="sexo" />Prefiro não informar<br />
+
+			<br />
+
+			<script>
+    
+				function limpa_formulário_cep() {
+						//Limpa valores do formulário de cep.
+						document.getElementById('rua').value=("");
+						document.getElementById('bairro').value=("");
+						document.getElementById('cidade').value=("");
+						document.getElementById('uf').value=("");
+						document.getElementById('ibge').value=("");
+				}
+			
+				function meu_callback(conteudo) {
+					if (!("erro" in conteudo)) {
+						//Atualiza os campos com os valores.
+						document.getElementById('rua').value=(conteudo.logradouro);
+						document.getElementById('bairro').value=(conteudo.bairro);
+						document.getElementById('cidade').value=(conteudo.localidade);
+						document.getElementById('uf').value=(conteudo.uf);
+						document.getElementById('ibge').value=(conteudo.ibge);
+					} //end if.
+					else {
+						//CEP não Encontrado.
+						limpa_formulário_cep();
+						alert("CEP não encontrado.");
+					}
+				}
+					
+				function pesquisacep(valor) {
+			
+					//Nova variável "cep" somente com dígitos.
+					var cep = valor.replace(/\D/g, '');
+			
+					//Verifica se campo cep possui valor informado.
+					if (cep != "") {
+			
+						//Expressão regular para validar o CEP.
+						var validacep = /^[0-9]{8}$/;
+			
+						//Valida o formato do CEP.
+						if(validacep.test(cep)) {
+			
+							//Preenche os campos com "..." enquanto consulta webservice.
+							document.getElementById('rua').value="...";
+							document.getElementById('bairro').value="...";
+							document.getElementById('cidade').value="...";
+							document.getElementById('uf').value="...";
+							document.getElementById('ibge').value="...";
+			
+							//Cria um elemento javascript.
+							var script = document.createElement('script');
+			
+							//Sincroniza com o callback.
+							script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+			
+							//Insere script no documento e carrega o conteúdo.
+							document.body.appendChild(script);
+			
+						} //end if.
+						else {
+							//cep é inválido.
+							limpa_formulário_cep();
+							alert("Formato de CEP inválido.");
+						}
+					} //end if.
+					else {
+						//cep sem valor, limpa formulário.
+						limpa_formulário_cep();
+					}
+				};
+			
+				</script>
+				</head>
+			
+				
+				
+				  <form method="get" action=".">
+					<label>Cep:
+					<input name="cep" type="text" id="cep" value="" size="10" maxlength="9"
+						   onblur="pesquisacep(this.value);" /></label><br />
+					<label>Rua:
+					<input name="rua" type="text" id="rua" size="60" /></label><br />
+					<label>Bairro:
+					<input name="bairro" type="text" id="bairro" size="40" /></label><br />
+					<label>Cidade:
+					<input name="cidade" type="text" id="cidade" size="40" /></label><br />
+					<label>Estado:
+					<input name="uf" type="text" id="uf" size="2" /></label><br />
+					<label>IBGE:
+					<input name="ibge" type="text" id="ibge" size="8" /></label><br />
+				 	<input type="submit" value="Cadastrar" />
+
+
+		</form>
+
+	</body>
+
+</html>
